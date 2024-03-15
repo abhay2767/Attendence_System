@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
     const [token, settoken] = useState(localStorage.getItem("Token"))
     const [user, setuser] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+    const [attendanceData, setattendanceData] = useState('')
     const AuthorizationToken = `Bearer ${token}`;
 
      const Apipath = "http://localhost:8000" || import.meta.env.Server_Address ;
@@ -49,12 +50,29 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const userAttendance = async()=>{
+        try {
+            const response = await fetch(`${Apipath}/api/get_attendance`, {
+                method: "GET",
+                headers: {
+                  Authorization: AuthorizationToken,
+                },
+              });
+              const result = await response.json()
+              setattendanceData(result)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    console.log(attendanceData)
+
     useEffect(() => {
         userAuthentication()
+        userAttendance()
     }, [])
 
 
-    return <AuthContext.Provider value={{ isLoggedIn, storeTokenInLs, LogoutUser, user, isLoading, AuthorizationToken, Apipath,userAuthentication}}>
+    return <AuthContext.Provider value={{ isLoggedIn, storeTokenInLs, LogoutUser, user, isLoading, AuthorizationToken, Apipath,userAuthentication,userAttendance,attendanceData}}>
         {children}
     </AuthContext.Provider>
 }
