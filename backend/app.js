@@ -15,7 +15,9 @@ app.use(express.json())
 app.use('/api/', auth_router)
 app.use('/api/', attendance_router)
 
+
 connect_Db()
+
 
 app.listen(PORT, ()=>{
     console.log("Server is started")
