@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const MONGO_URI = process.env.MONGO_URI
+const MONGO_URI = "mongodb+srv://dubeyabhay2767:cZMHfubwg9kfQn1q@abhayfreecluster.w1yoaak.mongodb.net/abhayfreecluster?retryWrites=true&w=majority"
 
 const connect_Db = ()=>{
     const connectParems = {

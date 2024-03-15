@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../Model/User_Model')
 
+const JWT_SECRET = "AbhayIsAGoodBoy8859022825Kanpur"
+
 const Auth_Middleware = async (req, res, next) => {
     const token = req.header('Authorization')
     if (!token) {
@@ -10,7 +12,7 @@ const Auth_Middleware = async (req, res, next) => {
     const jwtToken = token.replace("Bearer", "").trim();
     // console.log(jwtToken)
     try {
-        const isVarified = jwt.verify(jwtToken, process.env.JWT_SECRET)
+        const isVarified = jwt.verify(jwtToken, JWT_SECRET)
         // console.log(isVarified)
         // console.log("In")
         const userdata = await User.findOne({ email: isVarified.email }).
