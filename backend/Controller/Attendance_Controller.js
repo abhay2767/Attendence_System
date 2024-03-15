@@ -1,5 +1,6 @@
 const User = require('../Model/User_Model')
 const Attendance = require('../Model/Attendance_Model')
+const attendance_data = require('../Model/Attendance_Model')
 const {oneMinute} = require('../Helper/NextDay')
 
 const Add_attendance = async (req, res) => {
@@ -36,20 +37,20 @@ const Add_attendance = async (req, res) => {
 };
 
 
-const Get_attendance = async(req,res)=>{
+const Get_attendance = async (req, res) => {
     try {
-         const allAttendance = await Attendance.find({});
-
-         if (!allAttendance || allAttendance.length === 0) {
-             return res.status(404).json({ success: false, message: "No attendance records found" });
-         }
- 
-         res.status(200).json( allAttendance );
+        const userData = req.user
+        const attendanceData = await attendance_data.find({user:userData.id})
+        // console.log(attendanceData)
+         if (attendanceData.length === 0) {
+            return res.status(404).json({ success: false, message: "No attendance records found" });
+        } 
+        res.status(200).json(attendanceData);
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
     }
 }
-
 
 
 module.exports = {
