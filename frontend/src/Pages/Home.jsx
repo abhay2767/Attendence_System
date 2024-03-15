@@ -1,12 +1,15 @@
 import { useAuth } from '../store/auth'
 import profile from '../Images/profile.png'
 import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
 const Home = () => {
     const { isLoggedIn, Apipath, user, isLoading, userAuthentication, AuthorizationToken, userAttendance } = useAuth();
     const [data, setData] = useState(true)
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
+
+    
 
     const handleSubmit = async () => {
         try {
@@ -36,11 +39,19 @@ const Home = () => {
             console.log(error)
         }
     }
-
-
     useEffect(() => {
         userAuthentication()
     }, [])
+    
+    if (!isLoggedIn) {
+        return <Navigate to='/login' />;
+    }
+    if (isLoading) {
+        return <h1>Loading...</h1>;
+    }
+    
+
+    
 
     return (
         <>
