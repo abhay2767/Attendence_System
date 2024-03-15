@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     const [attendanceData, setattendanceData] = useState('')
     const AuthorizationToken = `Bearer ${token}`;
 
-     const Apipath = "http://localhost:5000"
+     const Apipath = "http://35.153.55.238:5000"
 
 
     const storeTokenInLs = (servertoken) => {
