@@ -6,7 +6,7 @@ const cors = require('cors')
 const auth_router = require('./Router/Auth_Router');
 const attendance_router = require('./Router/Attendance_Router')
 
-const PORT = 5500
+const PORT = 5000
 
 app.use(cors())
 app.use(express.json())
