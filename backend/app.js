@@ -11,6 +11,10 @@ const PORT = 5500
 app.use(cors())
 app.use(express.json())
 
+app.get('/', (req,res)=>{
+    res.send("This is home page")
+   })
+   
 
 app.use('/api/', auth_router)
 app.use('/api/', attendance_router)
